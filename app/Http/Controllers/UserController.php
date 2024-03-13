@@ -18,7 +18,7 @@ class UserController extends Controller
         // ];
         // UserModel:: create($data);
 
-        $user = UserModel::firstwhere('level_id',1);
-        return view('user', ['data'=> $user]);
+        $user = UserModel::where('level_id' ,2)->count();
+        return view('level/index', ['data'=> $user]);
     }
 }
