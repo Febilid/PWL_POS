@@ -1,33 +1,17 @@
 @extends('layouts.app')
 
-{{-- Customize layout sections --}}
-@section('subtitle', 'Kategori')
-@section('content_header_title', 'Kategori')
-@section('content_header_subtitle', 'Manage')
+{{-- Custumize layouts section --}}
 
-{{-- Content body --}}
+@section('subtitle', 'Kategori')
+@section('content_header_title', 'Home')
+@section('content_header_subtitle', 'Kategori')
+
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Manage Kategori</h3>
-            </div>
+            <div class="card-header">Manage Kategori</div>
             <div class="card-body">
                 {{ $dataTable->table() }}
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-3">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">List Kategori</h3>
-                <div class="card-tools">
-                    <a href="{{ route('kategori.create') }}" class="btn btn-primary">Add</a>
-                </div>
-            </div>
-            <div class="card-body">
-                <!-- Your category list table goes here -->
             </div>
         </div>
     </div>

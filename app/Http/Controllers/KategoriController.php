@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\KategoriDataTable;
+use App\Http\Requests\StorePostRequest;
 use App\Models\KategoriModel;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KategoriController extends Controller
 {
     public function index(KategoriDataTable $dataTable)
     {
+        // dd($dataTable);
         return $dataTable->render('kategori.index');
     }
 
@@ -18,13 +22,15 @@ class KategoriController extends Controller
         return view('kategori.create');
     }
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request): RedirectResponse
     {
         // Validasi data yang diterima dari form
-        // $request->validate([
-        //     'kodeKategori' => 'required',
-        //     'namaKategori' => 'required',
-        // ]);
+        $validated = $request->validated();
+
+        $validated = $request->safe()->only(['kategori_kode', 'kategori_nama']);
+        $validated = $request->safe()->except(['kategori_kode', 'kategori_nama']);
+
+        // The post is valid...
 
         // Buat data kategori baru berdasarkan input dari form
         KategoriModel::create([
@@ -38,14 +44,27 @@ class KategoriController extends Controller
 
     public function edit($id)
     {
-        $kategori = KategoriModel::findOrFail($id);
-        return view('kategori.edit', compact('kategori'));
+        $kategori = KategoriModel::find($id);
+        return view('kategori.edit', ['data' => $kategori]);
     }
 
-    public function destroy($id)
+    public function update($id, Request $request)
     {
-        $kategori = KategoriModel::findOrFail($id);
+        $kategori = KategoriModel::find($id);
+
+        $kategori->kategori_kode = $request->kodeKategori;
+        $kategori->kategori_nama = $request->namaKategori;
+
+        $kategori->save();
+
+        return redirect('/kategori');
+    }
+
+    public function delete($id)
+    {
+        $kategori = KategoriModel::find($id);
         $kategori->delete();
+
         return redirect('/kategori');
     }
 }
