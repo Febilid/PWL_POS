@@ -1,40 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.template') 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Data User</title>
-</head>
+@section('content')
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Data Level Pengguna</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="level_table" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Kode Level</th>
+                                        <th>Nama Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($level as $item)
+                                        <tr>
+                                            <td>{{ $item->level_id }}</td>
+                                            <td>{{ $item->level_kode }}</td>
+                                            <td>{{ $item->level_nama }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+@endsection
 
-<body>
-    <h1>Data User</h1>
-    <a href="/user/tambah">+ Tambah User</a>
-    <table border="1" cellpadding="3" cellspacing="0">
-        <tr>
-            <td>ID</td>
-            <td>Username</td>
-            <td>Nama</td>
-            <td>ID Level Pengguna</td>
-            <td>Kode Level</td>
-            <td>Nama Level</td>
-            <td>Aksi</td>
-        </tr>
-        @foreach ($data as $d)
-
-        <tr>
-            <td>{{ $d->user_id }}</td>
-            <td>{{ $d->username }}</td>
-            <td>{{ $d->nama }}</td>
-            <td>{{ $d->level_id }}</td>
-            <td>{{ $d->level->level_kode }}</td>
-            <td>{{ $d->level->level_nama }}</td>
-            <td><a href="/user/ubah/{{ $d->user_id }}">Ubah</a> |
-                <a href="/user/hapus/{{ $d->user_id }}">Hapus</a>
-        </tr>
-        @endforeach
-    </table>
-</body>
-
-</html>
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#level_table').DataTable();
+        });
+    </script>
+@endpush
