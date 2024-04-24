@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\POSController;
@@ -53,3 +54,18 @@ Route::post('/stok/list', [StokController::class, 'list']);
 
 Route::resource('penjualan', TransaksiPenjualanController::class);
 Route::post('/penjualan/list', [TransaksiPenjualanController::class, 'list']);
+
+Route::get ('login', [AuthController::class,'index'])->name('login');
+Route::get ('register', [AuthController::class,'register'])->name('register');
+Route::get ('proses_login', [AuthController::class,'proses_login'])->name('proses_login');
+Route::get ('logout', [AuthController::class,'logout'])->name('logout');
+Route::get ('proses_register', [AuthController::class,'proses_register'])->name('proses_register');
+
+Route::group (['middleware' => ['auth']], function(){
+    Route::group (['middleware' => ['cek_login']], function(){
+        Route::resource('admin', AdminController::class);
+    });
+    Route::group (['middleware' => ['cek_login:2']], function(){
+        Route::resource('manager', ManageController::class);
+    });
+});
