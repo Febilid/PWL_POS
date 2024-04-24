@@ -13,7 +13,7 @@
                 </div>
                 <a href="{{ url('user') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
             @else
-                <form method="POST" action="{{ url('/user/' . $user->user_id . '/update') }}" class="form-horizontal">
+                <form method="POST" action="{{ url('/user/' . $user->user_id) }}" class="form-horizontal">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
