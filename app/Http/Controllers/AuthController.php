@@ -47,14 +47,14 @@ class AuthController extends Controller
             $user = Auth::user();
 
             // cek lagi jika level user admin maka arahkan ke halaman admin
-            if ($user->level_id == '1') {
-                //dd(suser->level_id);
-                return redirect()->intended('admin');
-            }
-            // tapi jika level user nya user biasa maka arahkan ke halaman user
-            else if ($user->level_id == '2') {
-                return redirect()->intended('manager');
-            }
+            // if ($user->level_id == '1') {
+            //     //dd(suser->level_id);
+            //     return redirect()->intended('admin');
+            // }
+            // // tapi jika level user nya user biasa maka arahkan ke halaman user
+            // else if ($user->level_id == '2') {
+            //     return redirect()->intended('manager');
+            // }
             // jika belum ada role maka ke halaman /
             return redirect()->intended('/');
         }
